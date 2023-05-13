@@ -3,6 +3,7 @@ import ContactForm from './ContactForm/ContactForm';
 import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
 import { nanoid } from 'nanoid';
+import style from './App.module.css';
 
 export class App extends Component {
   state = {
@@ -16,21 +17,10 @@ export class App extends Component {
   };
 
   addContact = userData => {
-    let existingUser = this.state.contacts.some(
-      user => user.name === userData.name
-    );
-    if (existingUser) {
-      alert(`${existingUser.name} is already in contacts`);
-    } else {
-      const newUser = { ...userData, id: nanoid() };
-      this.setState(prevstate => {
-        return {
-          contacts: [...prevstate.contacts, newUser],
-          name: '',
-          number: '',
-        };
-      });
-    }
+    const newUser = { ...userData, id: nanoid() };
+    this.setState(prevstate => {
+      return { contacts: [...prevstate.contacts, newUser] };
+    });
   };
 
   deleteContact = id => {
@@ -56,10 +46,15 @@ export class App extends Component {
     const contactSeach = contacts.filter(user =>
       this.filterContact(user.name, filter)
     );
+    const contactName = contacts.map(user => user.name);
 
     return (
-      <div>
-        <ContactForm addContact={this.addContact} />
+      <div className={style.book}>
+        <h1 className={style.text}>Phonebook</h1>
+        <ContactForm addContact={this.addContact} contactName={contactName} />
+
+        <h2 className={style.text}>Contacts</h2>
+
         <Filter handleChangeFilter={this.handleChangeFilter} filter={filter} />
         <ContactList
           contactSeach={contactSeach}
