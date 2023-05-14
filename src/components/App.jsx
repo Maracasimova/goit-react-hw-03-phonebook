@@ -4,7 +4,7 @@ import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
 import { nanoid } from 'nanoid';
 import style from './App.module.css';
-import { LOCALSTORAGE_KEY } from './constants';
+import { LOCALSTORAGE_KEY } from '../constants';
 
 
 export class App extends Component {
